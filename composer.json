@@ -1,0 +1,11 @@
+{
+    "name": "l4rzzz/infoblox-wapi",
+    "description": "Interact with some Infoblox WAPI endpoints",
+    "license": "MIT",
+    "require": {
+        "guzzlehttp/guzzle": "^6"
+    },
+    "autoload": {
+        "psr-4": {"L4rzzz\\InfobloxWapi\\" : "src/"}
+    }
+}
