@@ -96,7 +96,7 @@ class Dns extends \L4rzzz\InfobloxWapi\InfobloxWapi
     {
         $arr = $this->httpGet(
             '/record:a?name=' . $name .
-            '&ipv4addr=' . $ipv4addr  .
+            '&ipv4addr=' . $ipv4addr .
             '&creator=' . $this->creator,
             $returnFields
         );
@@ -117,7 +117,7 @@ class Dns extends \L4rzzz\InfobloxWapi\InfobloxWapi
     {
         $arr = $this->httpGet(
             '/record:a?name=' . $name .
-            '&*' . $attrName . '=' . $attrValue  .
+            '&*' . $attrName . '=' . $attrValue .
             '&creator=' . $this->creator,
             $returnFields
         );
@@ -138,7 +138,7 @@ class Dns extends \L4rzzz\InfobloxWapi\InfobloxWapi
     {
         $arr = $this->httpGet(
             '/record:a?ipv4addr=' . $ipv4addr .
-            '&*' . $attrName . '=' . $attrValue  .
+            '&*' . $attrName . '=' . $attrValue .
             '&creator=' . $this->creator,
             $returnFields
         );
@@ -184,6 +184,25 @@ class Dns extends \L4rzzz\InfobloxWapi\InfobloxWapi
     }
 
     /**
+     * Search A record by extensible attribute
+     *
+     * @param  string $attrName         extensible attribute name
+     * @param  string $attrValueString  string to search in extensible attribute value
+     * @param  string $returnFields     comma separated return fields needed in response. see infoblox wapidoc
+     * @return array                    array of associative arrays
+     */
+    public function searchAByAttr($attrName, $attrValueString, $returnFields = '')
+    {
+        $arr = $this->httpGet(
+            '/record:a?*' . $attrName . '~=' . $attrValueString .
+            '&creator=' . $this->creator,
+            $returnFields
+        );
+
+        return $arr;
+    }
+
+    /**
      * Search A record by name and extensible attribute
      *
      * @param  string $name             string to match in name field
@@ -196,7 +215,7 @@ class Dns extends \L4rzzz\InfobloxWapi\InfobloxWapi
     {
         $arr = $this->httpGet(
             '/record:a?name~=' . $name .
-            '&*' . $attrName . '=' . $attrValue  .
+            '&*' . $attrName . '=' . $attrValue .
             '&creator=' . $this->creator,
             $returnFields
         );
@@ -353,6 +372,25 @@ class Dns extends \L4rzzz\InfobloxWapi\InfobloxWapi
     }
 
     /**
+     * Search CNAME record by extensible attribute
+     *
+     * @param  string $attrName         extensible attribute name
+     * @param  string $attrValueString  string to search in extensible attribute value
+     * @param  string $returnFields     comma separated return fields needed in response. see infoblox wapidoc
+     * @return array                    array of associative arrays
+     */
+    public function searchCnameByAttr($attrName, $attrValueString, $returnFields = '')
+    {
+        $arr = $this->httpGet(
+            '/record:cname?*' . $attrName . '~=' . $attrValueString .
+            '&creator=' . $this->creator,
+            $returnFields
+        );
+
+        return $arr;
+    }
+
+    /**
      * Search CNAME record by name and extensible attribute
      *
      * @param  string $name             string to match in name field
@@ -365,7 +403,7 @@ class Dns extends \L4rzzz\InfobloxWapi\InfobloxWapi
     {
         $arr = $this->httpGet(
             '/record:cname?name~=' . $name .
-            '&*' . $attrName . '=' . $attrValue  .
+            '&*' . $attrName . '=' . $attrValue .
             '&creator=' . $this->creator,
             $returnFields
         );
