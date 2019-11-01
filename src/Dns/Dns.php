@@ -184,6 +184,45 @@ class Dns extends \L4rzzz\InfobloxWapi\InfobloxWapi
     }
 
     /**
+     * Search A record by address
+     *
+     * @param  string $ipv4addr         IP address
+     * @param  string $returnFields     comma separated return fields needed in response. see infoblox wapidoc
+     * @return array                    array of associative arrays
+     */
+    public function searchAByAddr($ipv4addr, $returnFields = '')
+    {
+        $arr = $this->httpGet(
+            '/record:a?ipv4addr~=' . $ipv4addr .
+            '&creator=' . $this->creator,
+            $returnFields
+        );
+
+        return $arr;
+    }
+
+    /**
+     * Search A record by address and extensible attribute
+     *
+     * @param  string $ipv4addr         IP address
+     * @param  string $attrName         extensible attribute name
+     * @param  string $attrValue        extensible attribute value
+     * @param  string $returnFields     comma separated return fields needed in response. see infoblox wapidoc
+     * @return array                    array of associative arrays
+     */
+    public function searchAByAddrAttr($ipv4addr, $attrName, $attrValue, $returnFields = '')
+    {
+        $arr = $this->httpGet(
+            '/record:a?ipv4addr~=' . $ipv4addr .
+            '&*' . $attrName . '=' . $attrValue .
+            '&creator=' . $this->creator,
+            $returnFields
+        );
+
+        return $arr;
+    }
+
+    /**
      * Search A record by extensible attribute
      *
      * @param  string $attrName         extensible attribute name
