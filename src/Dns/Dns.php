@@ -362,10 +362,10 @@ class Dns extends \L4rzzz\InfobloxWapi\InfobloxWapi
      * @param  string $returnFields     comma separated return fields needed in response. see infoblox wapidoc
      * @return array                    array of associative arrays
      */
-    public function getCnameByCanonAttr($name, $attrName, $attrValue, $returnFields = '')
+    public function getCnameByCanonAttr($canonical, $attrName, $attrValue, $returnFields = '')
     {
         $arr = $this->httpGet(
-            '/record:cname?canonical=' . $name .
+            '/record:cname?canonical=' . $canonical .
             '&*' . $attrName . '=' . $attrValue,
             $returnFields
         );
@@ -403,6 +403,45 @@ class Dns extends \L4rzzz\InfobloxWapi\InfobloxWapi
     {
         $arr = $this->httpGet(
             '/record:cname?name~=' . $name .
+            '&creator=' . $this->creator,
+            $returnFields
+        );
+
+        return $arr;
+    }
+
+    /**
+     * Search CNAME record by canonical name
+     *
+     * @param  string $canonical        string to match in canonical name field
+     * @param  string $returnFields     comma separated return fields needed in response. see infoblox wapidoc
+     * @return array                    array of associative arrays
+     */
+    public function searchCnameByCanon($canonical, $returnFields = '')
+    {
+        $arr = $this->httpGet(
+            '/record:cname?canonical~=' . $canonical .
+            '&creator=' . $this->creator,
+            $returnFields
+        );
+
+        return $arr;
+    }
+
+    /**
+     * Search CNAME record by canonical name and extensible attribute
+     *
+     * @param  string $canonical        string to match in canonical name field
+     * @param  string $attrName         extensible attribute name
+     * @param  string $attrValue        extensible attribute value
+     * @param  string $returnFields     comma separated return fields needed in response. see infoblox wapidoc
+     * @return array                    array of associative arrays
+     */
+    public function searchCnameByCanonAttr($canonical, $attrName, $attrValue, $returnFields = '')
+    {
+        $arr = $this->httpGet(
+            '/record:cname?canonical~=' . $canonical .
+            '&*' . $attrName . '=' . $attrValue .
             '&creator=' . $this->creator,
             $returnFields
         );
