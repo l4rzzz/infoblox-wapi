@@ -745,6 +745,45 @@ class Dns extends \L4rzzz\InfobloxWapi\InfobloxWapi
     }
 
     /**
+     * Search MX record by mail exchanger
+     *
+     * @param  string $exchgr           string to match in mail exchanger field
+     * @param  string $returnFields     comma separated return fields needed in response. see infoblox wapidoc
+     * @return array                    array of associative arrays
+     */
+    public function searchMxByExchgr($exchgr, $returnFields = '')
+    {
+        $arr = $this->httpGet(
+            '/record:mx?mail_exchanger~=' . $exchgr .
+            '&creator=' . $this->creator,
+            $returnFields
+        );
+
+        return $arr;
+    }
+
+    /**
+     * Search MX record by mail exchanger and extensible attribute
+     *
+     * @param  string $exchgr           string to match in mail exchanger field
+     * @param  string $attrName         extensible attribute name
+     * @param  string $attrValue        extensible attribute value
+     * @param  string $returnFields     comma separated return fields needed in response. see infoblox wapidoc
+     * @return array                    array of associative arrays
+     */
+    public function searchMxByExchgrAttr($exchgr, $attrName, $attrValue, $returnFields = '')
+    {
+        $arr = $this->httpGet(
+            '/record:mx?mail_exchanger~=' . $exchgr .
+            '&*' . $attrName . '=' . $attrValue .
+            '&creator=' . $this->creator,
+            $returnFields
+        );
+
+        return $arr;
+    }
+
+    /**
      * Get TXT record by name
      *
      * @param  string $name             FQDN
