@@ -9,7 +9,7 @@ namespace L4rzzz\InfobloxWapi\Ipam;
  */
 class Ipam extends \L4rzzz\InfobloxWapi\InfobloxWapi
 {
-	/**
+    /**
      * Get IPAM IPv4 Address information by IP Address
      *
      * @param  string   $ipv4addr       client hostname
